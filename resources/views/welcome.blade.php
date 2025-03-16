@@ -4,6 +4,17 @@
     <title>Books</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <style>
+        body{
+            background-color: #718096;
+        }
+        h1 {
+            text-align: center;
+            font-size: 2.5em;
+            color: #333;
+            text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.1);
+            margin-bottom: 20px;
+            font-family: "Noto Serif", serif;
+        }
         .button {
             background-color: #007bff;
             color: white;
@@ -45,6 +56,8 @@
         <th>Title</th>
         <th>Author</th>
         <th>Rating</th>
+        <th>Actions</th>
+        <th>Actions</th>
     </tr>
     </thead>
     <tbody>
@@ -53,11 +66,19 @@
             <td>{{ $book->title }}</td>
             <td>{{ $book->author }}</td>
             <td>{{ $book->rating }}</td>
+            <td><a href="{{ route('books.edit',$book->id) }}"class="button">Edit</a></td>
+            <td>
+                <form action="{{ route('book.delete', $book->id) }}" method="POST" style="display:inline;">
+                    @csrf
+                    @method('DELETE')
+                    <button type="submit" class="button delete-button">Delete</button>
+                </form>
+            </td>K
         </tr>
-        <div style="text-align: center;">
-            <a href="{{ route('books.create') }}" class="button">Add book</a>
-        </div>
     @endforeach
+    <div style="text-align: center;">
+        <a href="{{ route('books.create') }}" class="button">Add book</a>
+    </div>
     </tbody>
 </table>
 </body>
